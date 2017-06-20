@@ -1,0 +1,31 @@
+{
+    "JobName": "trafficcontroller",
+    "Index": "3",
+    "OutgoingDropsondePort": 49629,
+    "DopplerPort": 49627,
+    "DopplerAddrs": [],
+    "IncomingPort": 49631,
+    "SkipCertVerify": true,
+    "Zone": "z1",
+    "Host": "0.0.0.0",
+    "ApiHost": "http://127.0.0.1:49632",
+    "SystemDomain": "vcap.me",
+    "IP": "0.0.0.0",
+
+    "MetronPort": 49625,
+    "UaaHost": "http://127.0.0.1:49628",
+    "UaaClient": "bob",
+    "UaaClientSecret": "yourUncle",
+    "CipherSuites": [
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+    ],
+    "PPROFPort": 6060,
+    "GRPC": {
+        "Port": 11111,
+        "KeyFile": "/loggregator-certs/trafficcontroller.key",
+        "CertFile": "/loggregator-certs/trafficcontroller.crt",
+        "CAFile": "/loggregator-certs/loggregator-ca.crt"
+    }
+}
+

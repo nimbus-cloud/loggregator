@@ -1,0 +1,28 @@
+{
+    "DisableSyslogDrains": true,
+    "DisableAnnounce": true,
+    "IncomingUDPPort": 8765,
+    "OutgoingPort": 4567,
+    "PPROFPort": 6790,
+    "SinkSkipCertVerify": true,
+    "IP": "127.0.0.1",
+    "MaxRetainedLogMessages": 10,
+    "MessageDrainBufferSize": 100,
+    "SharedSecret": "secret",
+    "Syslog"  : "",
+    "ContainerMetricTTLSeconds": 120,
+    "SinkInactivityTimeoutSeconds": 120,
+    "BlackListIps": [
+        {"Start": "127.0.0.2", "End": "127.0.0.3"}
+    ],
+    "MetronConfig": {
+        "UDPAddress": "localhost:37474"
+    },
+    "MonitorIntervalSeconds": 1,
+    "GRPC": {
+        "Port": 5678,
+        "KeyFile": "/loggregator-certs/doppler.key",
+        "CertFile": "/loggregator-certs/doppler.crt",
+        "CAFile": "/loggregator-certs/loggregator-ca.crt"
+    }
+}
