@@ -3,6 +3,12 @@ version: '2'
 services:
   dev-certs:
     image: loggregator/dev-certs
+  dummymetron:
+    image: loggregator/dummymetron
+    networks:
+    - loggregator
+    volumes_from:
+    - dev-certs:ro
   doppler:
     image: loggregator/doppler
     networks:

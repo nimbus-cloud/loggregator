@@ -12,7 +12,10 @@
     "SystemDomain": "vcap.me",
     "IP": "0.0.0.0",
 
-    "MetronPort": 49625,
+    "MetronConfig": {
+        "UDPAddress": "dummymetron:12345",
+        "GRPCAddress": "dummymetron:12345"
+    },
     "UaaHost": "http://127.0.0.1:49628",
     "UaaClient": "bob",
     "UaaClientSecret": "yourUncle",

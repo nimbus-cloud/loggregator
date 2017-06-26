@@ -16,7 +16,8 @@
         {"Start": "127.0.0.2", "End": "127.0.0.3"}
     ],
     "MetronConfig": {
-        "UDPAddress": "localhost:37474"
+        "UDPAddress": "dummymetron:12345",
+        "GRPCAddress": "dummymetron:12345"
     },
     "MonitorIntervalSeconds": 1,
     "GRPC": {
