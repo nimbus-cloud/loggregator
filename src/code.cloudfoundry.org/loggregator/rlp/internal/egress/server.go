@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"sync/atomic"
 
 	"code.cloudfoundry.org/loggregator/metricemitter"
 
@@ -24,12 +23,11 @@ type Receiver interface {
 }
 
 type Server struct {
-	activeConnections int64
-	receiver          Receiver
-	egressMetric      *metricemitter.CounterMetric
-	droppedMetric     *metricemitter.CounterMetric
-	health            HealthRegistrar
-	ctx               context.Context
+	receiver      Receiver
+	egressMetric  *metricemitter.CounterMetric
+	droppedMetric *metricemitter.CounterMetric
+	health        HealthRegistrar
+	ctx           context.Context
 }
 
 func NewServer(
@@ -61,12 +59,6 @@ func NewServer(
 func (s *Server) Receiver(r *v2.EgressRequest, srv v2.Egress_ReceiverServer) error {
 	s.health.Inc("subscriptionCount")
 	defer s.health.Dec("subscriptionCount")
-	activeConnections := atomic.AddInt64(&s.activeConnections, 1)
-	defer atomic.AddInt64(&s.activeConnections, -1)
-
-	if activeConnections > 500 {
-		return errors.New("We have too many connections!")
-	}
 
 	if r.GetFilter() != nil &&
 		r.GetFilter().SourceId == "" &&

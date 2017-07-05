@@ -79,7 +79,7 @@ func main() {
 		app.WithEgressPort(*egressPort),
 		app.WithIngressAddrs(hostPorts),
 		app.WithIngressDialOptions(grpc.WithTransportCredentials(dopplerCredentials)),
-		app.WithEgressServerOptions(grpc.Creds(dopplerCredentials), grpc.MaxConcurrentStreams(300)),
+		app.WithEgressServerOptions(grpc.Creds(dopplerCredentials)),
 		app.WithHealthAddr(*healthAddr),
 	)
 	go rlp.Start()
