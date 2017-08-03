@@ -30,6 +30,7 @@ import (
 	"github.com/cloudfoundry/storeadapter"
 	"github.com/cloudfoundry/storeadapter/etcdstoreadapter"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 )
 
 type trafficController struct {
@@ -131,7 +132,12 @@ func (t *trafficController) Start() {
 		)
 	}
 	f.Start()
-	pool := plumbing.NewPool(20, grpc.WithTransportCredentials(creds))
+	kp := keepalive.ClientParameters{
+		Time: 5 * time.Minute,
+		Timeout: 20 * time.Second,
+		PermitWithoutStream: true,
+	}
+	pool := plumbing.NewPool(20, grpc.WithTransportCredentials(creds), grpc.WithKeepaliveParams(kp))
 	grpcConnector := plumbing.NewGRPCConnector(1000, pool, f, batcher)
 
 	dopplerHandler := http.Handler(

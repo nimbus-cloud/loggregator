@@ -16,6 +16,8 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/keepalive"
+	"time"
 )
 
 type GRPCListener struct {
@@ -48,7 +50,11 @@ func NewGRPCListener(
 		log.Printf("Failed to start listener (port=%d) for gRPC: %s", conf.Port, err)
 		return nil, err
 	}
-	grpcServer := grpc.NewServer(grpc.Creds(transportCreds))
+	kp := keepalive.EnforcementPolicy{
+		MinTime: 5 * time.Minute,
+		PermitWithoutStream: true,
+	}
+	grpcServer := grpc.NewServer(grpc.Creds(transportCreds), grpc.KeepaliveEnforcementPolicy(kp))
 
 	// v1 ingress
 	plumbingv1.RegisterDopplerIngestorServer(
