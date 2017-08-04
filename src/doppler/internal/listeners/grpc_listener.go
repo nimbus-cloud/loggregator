@@ -51,7 +51,7 @@ func NewGRPCListener(
 		return nil, err
 	}
 	kp := keepalive.EnforcementPolicy{
-		MinTime: 5 * time.Minute,
+		MinTime: 1 * time.Minute,
 		PermitWithoutStream: true,
 	}
 	grpcServer := grpc.NewServer(grpc.Creds(transportCreds), grpc.KeepaliveEnforcementPolicy(kp))
